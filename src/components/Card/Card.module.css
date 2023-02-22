@@ -1,0 +1,42 @@
+@font-face{
+    font-family:"R&M";
+    src: url(../R&M.ttf) format('truetype');
+}
+
+.divCard {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 20px auto;
+    /* width: 370px; */
+    width: 450px;
+
+    height: 550px;
+    background: #03bb15;
+    border-radius: 200px;
+    
+    /* font-size: 20px;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    transition: 1s box-shadow; */  
+    /* border-color: brown ; */
+    border-width: 5px;
+    padding: auto;
+    /* border: 3px solid rgb(169, 4, 153); */
+
+    text-align: center;
+    background-image: url(https://cdna.artstation.com/p/assets/images/images/031/538/850/original/petro-kosariekov-portal-gun-rick-and-morty2-2.gif?1603902186);
+    background-position: no-repeat;
+    background-position: center center;
+    
+    /* background-attachment: fixed; */
+    background-size: 650px;
+    font-family: "R&M";
+}
+
+.imgCard{
+    border-radius: 150px;
+    /* border : 3px solid rgb(149, 9, 188); */
+}
+
