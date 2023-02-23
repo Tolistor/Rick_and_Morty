@@ -5,9 +5,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  text-align: center;
+  background-image: url(https://fondosmil.com/fondo/27356.jpg);
+  background-position: no-repeat;
+  background-position: center center;
+  
+  background-attachment: fixed; 
+  background-size: cover;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  
+  
+}
+
+@font-face{
+  font-family:"R&M";
+  src: url(./components/R&M.ttf) format('truetype');
+}
+
+
+
+#titulo {
+  font-family: "R&M";
+  font-size: 80px;
+
 }

@@ -1,0 +1,20 @@
+.SearchBar {
+    
+    /* background-color: black; */
+    border-color: yellow;
+    width: 250px;
+    float: right;
+    
+}
+
+.boton {
+    color: black;
+    background-color: rgb(16, 226, 23);
+    border-radius: 15px;
+}
+
+.input {
+    border-radius: 15px;
+    background-color: rgb(64, 243, 195);
+    color: rgb(214, 15, 168);
+}
