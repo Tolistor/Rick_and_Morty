@@ -3,11 +3,19 @@ import './App.css'
 import Cards from './components/Cards/Cards'
 // import SearchBar from './components/SearchBar/SearchBar'
 // import characters, { Rick } from './data.js'
-import Nav from './components/Nav/Nav' //? importamos "Nav"
+
 import { useState } from "react";
+//? importamos los elementos Routes y Route
+import { Routes, Route } from 'react-router-dom';
+import Nav from './components/Nav/Nav' //? importamos "Nav"
+import About from './components/About/About';
+import Detail from './components/Detail/Detail';
+//----------------------------------------------------------------
 
 function App () {
 
+  //funcion hace la peticion y la informacion de los personajes
+  //estado
   const [characters, setCharacters] = useState([]);
 
   const onSearch = (characters) => {
@@ -22,37 +30,26 @@ function App () {
         }
       });
   }
-  
+
+  const onClose = id => {
+    //[ 4,  5, 7]
+    setCharacters(characters.filter((char) => char.id !== id))
+  }
+
+  //----------------------------------------------------------------
   return (
     <div className='App' style={{ padding: '25px' }}>
+      <Nav onSearch={onSearch}/>
+      <Routes>
+        
+        <Route path='/home' element={<Cards characters={characters}  onClose={onClose}  />} />
+        <Route path='/about' element={<About />} />
+        <Route path='detail/:detailId' element={<Detail />} />
+        
+        
+      </Routes>
+      {/* <div id='titulo'>Rick and Morty</div> */}      
       
-      <div id='titulo'>Rick and Morty</div>
-
-      
-        <Nav onSearch={onSearch}/>
-      
-      
-      {/* <div>
-        <Card
-          name={Rick.name}
-          species={Rick.species}
-          gender={Rick.gender}
-          image={Rick.image}
-          onClose={() => window.alert('Emulamos que se cierra la card')}
-        />
-      </div> */}
-      {/* <hr /> */}
-      <div>
-        <Cards
-          characters={characters}
-        />
-      </div>
-      {/* <hr /> */}
-      {/* <div>
-        <SearchBar
-          onSearch={(characterID) => window.alert(characterID)}
-        />
-      </div> */}
       
     </div>
   )
