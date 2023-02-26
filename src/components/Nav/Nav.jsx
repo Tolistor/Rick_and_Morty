@@ -5,9 +5,9 @@ import { Link, NavLink } from "react-router-dom"
 const Nav = ({onSearch})=> {
     return (
         <nav className={styles.divSB}> 
-            <Link to="/about">About</Link>
+            <Link to="/about"><button>About</button></Link>
 
-            <Link to="/home">Home</Link>
+            <Link to="/home"><button>Home</button></Link>
 
             {/*  le pasamos la funcion a "SrarchBar"*/}
 

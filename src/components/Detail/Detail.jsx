@@ -10,7 +10,7 @@ import styles from './Detail.module.css';
 const Detail = ()=> {
 
     const {detailId}= useParams();
-    const [character, setCharacter] = useState();
+    const [character, setCharacter] = useState({});
 
     useEffect(() => {
         fetch(`https://rickandmortyapi.com/api/character/${detailId}`)

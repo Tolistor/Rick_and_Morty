@@ -3,20 +3,45 @@ import './App.css'
 import Cards from './components/Cards/Cards'
 // import SearchBar from './components/SearchBar/SearchBar'
 // import characters, { Rick } from './data.js'
-
+import { useEffect  } from 'react';
 import { useState } from "react";
 //? importamos los elementos Routes y Route
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Nav from './components/Nav/Nav' //? importamos "Nav"
 import About from './components/About/About';
 import Detail from './components/Detail/Detail';
+import Form from './components/Form/Form';
 //----------------------------------------------------------------
 
 function App () {
-
   //funcion hace la peticion y la informacion de los personajes
-  //estado
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  //estados
   const [characters, setCharacters] = useState([]);
+
+  //estado local access
+  const [access, setAccess] = useState(false);
+
+//cuenta simulacion de seguridad
+  const username = "correo@gmail.com";
+  const password = "prueba123" 
+
+  //si los datos ingresados coniciden le daremos acceso y lo enviaremos a "/Home"
+  const login = (userData)=> {
+    if (userData.username === username && userData.password === password){
+      setAccess(true);
+      navigate("/home")
+    }
+  }
+
+  //Esto no nos dejará navegar por la aplicación, al menos que ingresemos la información correcta!
+  useEffect(() => {
+    !access && navigate('/');
+  }, [access]);
+
 
   const onSearch = (characters) => {
 
@@ -39,8 +64,14 @@ function App () {
   //----------------------------------------------------------------
   return (
     <div className='App' style={{ padding: '25px' }}>
-      <Nav onSearch={onSearch}/>
+      
+      {/* mostramos el formulario de primero antes de todo en "/" y la barra de busqieda */}
+      {/* le pasamos la funcion "logion" a form como props */}
+      {location.pathname === "/" ? <Form login={login}/> : <Nav  onSearch={onSearch}/> }
+
+
       <Routes>
+        
         
         <Route path='/home' element={<Cards characters={characters}  onClose={onClose}  />} />
         <Route path='/about' element={<About />} />
