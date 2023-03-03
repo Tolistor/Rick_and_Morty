@@ -5,9 +5,12 @@ import validation from "../Validation/validation";
 
 const Form = ({login})=> { 
     // creamo un estado local
-    const [userData, setUserData] = useState({ username: '', password: '' });
+    const [userData, setUserData] = useState({ 
+        username: '', 
+        password: '' 
+    });
 
-    //inicializamos
+    //inicializamos un estado de errores
     const [errors, setErrors] = useState({
         username : "",
         password : "",
@@ -29,7 +32,7 @@ const Form = ({login})=> {
 
     }
 
-    //manejador de envio
+    //manejador de permisos valida el login y deja netrar o no
     const handleSubmit = (event) => {
         event.preventDefault()
         login(userData);
@@ -41,19 +44,38 @@ return (
 
     <form onSubmit={handleSubmit}>
 
-        <label htmlFor="username" >UserName</label>
+        <label 
+            htmlFor="username" 
+            >UserName
+        </label>
         {/* le damos el valor user name y le pasamos el manejador */}
-        <input type="text" name="username" value={userData.username} onChange={handleImputChange} ></input>
-
+        <input 
+            type="text" 
+            name="username" 
+            value={userData.username} 
+            onChange={handleImputChange} >
+        </input>
         {/* mostramos error */}
         {errors.username && <p style={{color:"red"}}>{errors.username}</p>}
 
-        <label htmlFor="password">Password</label>
+        <br/>
+
+        <label 
+            htmlFor="password"
+            >Password
+        </label>
         {/* le damos el valor password y le pasamos le manejador */}
-        <input type="password"  name="password" value={userData.password} onChange={handleImputChange}></input>
+        <input 
+            type="password"  
+            name="password" 
+            value={userData.password} 
+            onChange={handleImputChange}>
+        </input>
 
         {/* mostramos mensaje de error */}
         {errors.password && <p style={{color:"red"}}>{errors.password}</p>}
+
+        <hr/>
 
         <button>Ingresar</button>
     </form>
