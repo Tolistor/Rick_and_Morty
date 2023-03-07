@@ -11,6 +11,7 @@ import Nav from './components/Nav/Nav' //? importamos "Nav"
 import About from './components/About/About';
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
+import Favorites from './components/Favorites/favorites';
 //----------------------------------------------------------------
 
 function App () {
@@ -40,7 +41,7 @@ function App () {
   //Esto no nos dejará navegar por la aplicación, al menos que ingresemos la información correcta!
   useEffect(() => {
     !access && navigate('/');
-  }, [access]);
+  }, [access, navigate]);
 
 
   const onSearch = (characters) => {
@@ -75,8 +76,11 @@ function App () {
         
         <Route path='/home' element={<Cards characters={characters}  onClose={onClose}  />} />
         <Route path='/about' element={<About />} />
+                
         <Route path='detail/:detailId' element={<Detail />} />
+        <Route path="/favorites" element={<Favorites/>}/>
         
+
         
       </Routes>
       {/* <div id='titulo'>Rick and Morty</div> */}      
@@ -87,3 +91,4 @@ function App () {
 }
 
 export default App
+

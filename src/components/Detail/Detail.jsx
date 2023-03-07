@@ -12,6 +12,8 @@ const Detail = ()=> {
     const {detailId}= useParams();
     const [character, setCharacter] = useState({});
 
+    console.log(detailId)
+    
     useEffect(() => {
         fetch(`https://rickandmortyapi.com/api/character/${detailId}`)
             .then((response) => response.json())

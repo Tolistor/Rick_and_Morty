@@ -1,8 +1,8 @@
-# HW 09 - React-Routing | Integración
+## HW 13: React-Hooks | Integración
 
 ## **Duración estimada 🕒**
 
-1 hora y media
+2 horas
 
 <br />
 
@@ -10,172 +10,150 @@
 
 ## **Rick & Morty App**
 
-### **INTRO**
+## **INTRO**
 
-Continuamos con nuestra Rick & Morty App. Utilizaremos React-Router-DOM el cual nos va a permitir enrutar nuestra SPA. Esto quiere decir que podremos decidir en que path o "link" se renderice cada componente.
+En esta homework crearemos dos cosas que harán más completa nuestra aplicación: 😄
 
-Al finalizar, habremos creado tres rutas por las que podremos navegar:
+- Por un lado, haremos un **filtrado** para nuestros personajes favoritos. Vamos a filtrar todos los personajes por su género. En total hay cuatro géneros:
 
-- **"/home"**: esta será la ruta del Home (vista principal/general).
-- **"/detail/:detailId"**: en esta ruta encontraremos información más detallada sobre el personaje en particular.
-- **"/about"**: en esta ruta colocarás tu nombre y describirás de qué trata la aplicación Rick & Morty.
-
-<br />
-
----
-
-## **COMENCEMOS**
-
-Vamos a comenzar creando los componentes que nos faltan en nuestra carpeta components. Creamos `About.jsx` y `Detail.jsx` con sus respectivos archivos. Sólo los crearemos, aún no los construiremos. También creamos el archivo `.css` para el estilado. Recuerda que puedes utilizar cualquier formato de estilos (in-line, module, styled components, etc)
-
-Cómo sabemos, `react-router-dom` nos da la posibilidad de crear rutas dinámicas. Estas rutas serán los path o links en el que se renderizará el componente que nosotros decidamos. Para este ejercicio queremos que en cada link se vea lo siguiente:
-
-- `<Nav />` debe que aparecer en todas las rutas.
-- `<Cards />` debe aparecer sólo en la ruta `/home`.
-- `<About />` debe aparecer sólo en la ruta `/about`.
-- `<Detail />` debe aparecer sólo en la ruta `/detail/:detailId`
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 1**
-
-### **Instalar y configurar `react-router-dom`**
-
-Instala `react-router-dom` desde la terminal. Importa y envuelve la aplicación con "**BrowserRouter**" en el archivo index.js.
-
-Importa los elementos "**Routes**" y "**Route**", para que luego definamos las rutas en el archivo app.js.
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 2**
-
-### **Mi perfil**
-
-Ahora si construiremos el componente `<About />`. Este componente será una vista que contenga tu información y una explicación acerca de la aplicación!
-
-Esto significa que es completamente libre. Puedes mostrar incluso una foto tuya. Esto le servirá a las personas que vean tu App para conocer al creador 🤠✨.
-
-En la Navbar agrega el link About que dirija al componente **About** y el link Home para que dirija al componente **Home**.
-
-> **Hint**: Podrías utilizar NavLink para darle estilos al link About y Home.
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 3**
-
-### **Routing time!**
-
-En nuestro archivo "app.js" (aplicación), crea las rutas necesarias para que los componentes `<About />`, `<Cards />` y `<Nav />` se rendericen en sus links correspondientes. Recuerda que en el **EJERCICIO 1** ya están especificadas las rutas.
-
-Respecto al componente `<Detail />`, su ruta recibirá el parámetro **detailId**, por lo que debes asegurarte de escribir bien el path de esta ruta.
-
-> **Nota:** Comprueba en tu navegador que los links rendericen el componente correcto, y que el componente `<Nav />` se vea siempre.
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 4**
-
-### **Detail redirection**
-
-Ahora nuestra SPA cuenta con tres rutas distintas: "`/home`", "`/detail/:detailId`" y "`/about`".
-
-Para este ejercicio:
-
-1. En el componente `<Card />` importa y envuelve el nombre del personaje con el elemento "**Link**". Tiene que redirigirnos a la ruta de cada personaje.
-2. A este componente deberás pasarle por **props** el "**id**" del personaje para usarlo en el Link.
-
-```js
-// Card.js
-...
-<Link to={`/detail/${props.id}`} >
-  <h5 className="card-title">{props.name}</h5>
-</Link>
-...
+```javascript
+["Male", "Female", "unknown", "Genderless"];
 ```
 
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 5**
-
-### **Construcción del Detail**
-
-¡Genial! Cuando hacemos click sobre el nombre en una Card esta nos redirige a la ruta con el ID del personaje. Ahora necesitamos crear el componente que mostrará toda la información del personaje.
-
-Para obtener esta información importa los hooks **useState** de `react` y **useParams** de `react-router-dom` en el componente `<Detail />`.
-
-1. Primero obten el ID del personaje mediante **useParams**.
-
-2. Crea un estado local con el nombre **character**.
-
-3. En este paso importaremos el hook **useEffect** de `react`. Una vez importado, copia el siguiente código y pégalo en el cuerpo del componente.
-
-```js
-useEffect(() => {
-  fetch(`https://rickandmortyapi.com/api/character/${detailId}`)
-    .then((response) => response.json())
-    .then((char) => {
-      if (char.name) {
-        setCharacter(char);
-      } else {
-        window.alert("No hay personajes con ese ID");
-      }
-    })
-    .catch((err) => {
-      window.alert("No hay personajes con ese ID");
-    });
-  return setCharacter({});
-}, [id]);
-```
-
-> **NOTA:** Este código es el que buscará al personaje de la API cada vez que el componente se monte. Y luego, cada vez que se desmonte, borrará su información.
+- Por otro lado, haremos un **ordenamiento** también para nuestros personajes favoritos. Vamos a ordenar todos los personajes por su id (de mayor a menor y viceversa).
 
 <br />
 
 ---
 
-### **👩‍💻 EJERCICIO 6**
+## **👩‍💻 EJERCICIO 1**
 
-Ahora en tu estado local **character** tendrás toda la información del personaje disponible para que la renderices en este componente (`<Detail />`). Debes traer la siguiente información:
+### **ACTIONS**
 
-- Name
-- Status
-- Specie
-- Gender
-- Origin
-- Image
+🔹 Dirígete al archivo en el que se encuentran tus **actions**. 
 
-Dándole estilos debería quedarte algo similar a esto:
+🔹 Lo que hay que hacer:
 
-<img src="./img/final_detail.png" width='800px'/>
+1. Crear una action-creator con el nombre "**_filterCards_**", esta action-creator debe:
 
-<br />
+   a. Recibir por parámetro un **gender**.
 
-> **Hint**: Ten en cuenta el tipo de dato de cada propiedad renderizada! Además cuando vayas a renderizar la información puede suceder que al ser la llamada a la API de Rick & Morty asíncrona, no le da tiempo de guardar la información y renderizarla. Para ello, puedes usar "?" para validar si nuestro estado tiene información a renderizar.
+   b. Retornar  un **_type_** llamado "**FILTER**" y un **_payload_** donde su valor sea el parámetro recibido en la action.
 
----
+2. Crear una segunda action-creator con el nombre "**_orderCards_**". Esta action-creator debe:
 
-### **👩‍💻 EJERCICIO 7**
+   a. Recibir por parámetro un **id**. 
 
-Crea un botón en el componente `<Detail />` que te permita regresar a "`/home`".
+   b. Retornar un **_type_** llamado "**ORDER**", y un **_payload_** donde su valor sea el parámetro recibido en la action.
 
 <br />
 
 ---
 
-### **📌 EXTRA CREDIT**
+## **👩‍💻 EJERCICIO 2**
 
-Ahora te desafiamos a que crees un nuevo componente llamado **Error**. A este componente le podrás dar los estilos que quieras, pero la idea es que se muestre un mensaje de error 404.
+### **REDUCER**
 
-Pueden inspirarte en el siguiente link: "https://github.com/errroorrxd".
+🔹 Seguiremos trabajando nuestro reducer, el objetivo de este ejercicio es añadir una nueva propiedad de estado y con la propiedad que ya teníamos creada de la homework anterior (React-Redux), lograremos paso a paso filtrar y ordenar nuestros personajes favoritos.
 
-El desafío es el siguiente: haz que este componente se muestre cada vez que el usuario ingrese a cualquier otra ruta que no exista. Es decir que no la hayas especificado en esta homework. Por ejemplo, si creaste una ruta "`/home`" y "`/about`", y el usuario en el navegador escribe y "`/henry`", debería mostrar el error 404.
+🔹 Lo que hay que hacer:
+
+1. Dirígete al archivo en el que se encuentra tu reducer:
+
+   a. Crea una nueva propiedad de estado llamada _**allCharacters**_ a nuestro estado global  **_initialState_**.
+
+   b. **_allCharacters** debe ser un arreglo vacío.
+
+2. Modifiquemos el caso **ADD_FAV**:
+   
+   a. Actualmente tenemos en el return de este case:
+   
+      - El state.
+      
+      - Una propiedad llamada _**myFavorites**_ donde su valor es una copia del estado _**myFavorites**_ y el payload.
+      
+      ♦ Lo que debes es reemplazar la copia de _**myFavorites**_ por una copia del estado creado en el punto anterior: _**allCharacters**_.
+   
+   b. Debajo de la propiedad _**myFavorites**_ agrega la propiedad de estado _**allCharacters**_ donde su valor sea una copia de este estado y el payload.
+
+3. Crea un nuevo caso con el nombre "_FILTER_", en él vamos a filtrar nuestros personajes favoritos para ello debes hacer lo siguiente:
+
+   a. Mediante destructuring trae la propiedad de estado "**_allCharacters_**". 
+   
+   b. Filtra aquellos personajes que tengan el mismo género que recibes por payload. 
+   
+   c. Retorna tu estado global y la propiedad **_myFavorites_** ésta última debe ser igual al filtrado que haz hecho en el punto b.
+
+   >**Hint**: Recuerda cuando desarrollamos la homework 08-React-Estado-LifeCycle 01-Exercises: en Zoo app, creamos también copias de estado 😉.
+
+4. Crea un caso con el nombre "_ORDER_", en él vamos a ordenar nuestros personajes favoritos de forma ascendente y descendente, para ello debes hacer los siguientes pasos:
+
+   a. Mediante destructuring trae la propiedad de estado "**_allCharacters_**". 
+
+   b. Utilizar el método **sort** para ordenar tus personajes de acuerdo a su ID.
+
+   c. Si el _payload_ es igual a "**Ascendente**", los personajes deben ordenarse de menor a mayor.
+
+   d. Si el _payload_ es "**Descendente**, los personajes deben ordenarse de mayor a menor.
+
+   e. Retornar tu estado global y la propiedad **_myFavorites_**, ésta última debe ser igual al ordenamiento que acabas de hacer.
+
+> **NOTA:** investiga en la web sobre cómo funciona el método sort.
+
+<br />
+
+---
+
+## **👩‍💻 EJERCICIO 3**
+
+### **Filtros y ordenamientos en el componente Favorites**
+
+🔹 Dirígete al archivo en el que se encuentra tu componente **Favorites**.
+
+🔹 Lo que hay que hacer:
+
+1. Crea una etiqueta `div`.
+
+2. Dentro del div crea una etiqueta `select` con el atributo **name**, para el ordenamiento, dentro de esta etiqueta:
+
+   a. Crea una etiqueta `option` con el atributo **value**, el valor del atributo debe ser "_Ascendente_" y su texto puede ser _Ascendente_.
+
+   b. Crea una segunda etiqueta **option** con el atributo **value**, el valor del atributo debe ser "_Descendente_" y su texto puede ser _Descendente_.
+
+   Por ejemplo:
+
+    ```html
+   <option value="Ascendente">Ascendente</option>
+   ```
+
+3. Crea una segunda etiqueta **select** con el atributo name, para el filtrado, dentro de esta etiqueta:
+
+   a. Crea 4 etiquetas **option** cada una con su atributo **value** con los siguientes valores: **Male**, **Female**, **Genderless** y **unknown**. Cada texto de cada etiqueta option puede ser igual a cada valor.
+
+     ```html
+   <option value="Male">Male</option>
+   ```
+
+4. Crea una función que reciba como parámetro un evento y despache la acción "**orderCards**" con el hook **useDispatch**; la acción recibe como argumento `e.target.value`.
+
+5. Crea una función que reciba como parámetro un evento y despache la acción "**filterCards**" con el hook **useDispatch**; la acción recibe como argumento **e.target.value**.
+
+
+6. Agrega el atributo `onChange` a las etiquetas **select** y que su valor sea el nombre de la función correspondiente a cada select.
+
+<br />
+
+---
+
+## **👩‍💻 Extra Credit**
+
+Agrega una opción adicional en el select del filtro para que muestre todos los personajes. Desarrolla la lógica para que ello ocurra.
+
+
+<br />
+
+---
+
+A esta altura, tu filtro y ordenamiento debería estar funcionando de la siguiente manera!
+
+<img src="./img/example.gif" alt="" />

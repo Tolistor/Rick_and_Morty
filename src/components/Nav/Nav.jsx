@@ -11,6 +11,7 @@ const Nav = ({onSearch})=> {
 
             {/*  le pasamos la funcion a "SrarchBar"*/}
 
+            <Link to="/favorites"><button>favorites</button></Link>
             <SearchBar onSearch={onSearch}/>
         
         </nav>
