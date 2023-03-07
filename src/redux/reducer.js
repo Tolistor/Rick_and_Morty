@@ -26,26 +26,50 @@ const reducer= (state= initialState, action ) =>{
             myFavorites: state.myFavorites.filter (char => char.id !== action.payload)
         }
 
-    case FILTER :
-        const { gender } = action.payload;
-        const filteredCharacters = state._allCharacters.filter(character => character.gender === gender);
+        case FILTER:
+            const { _allCharacters } = state; // Obtenemos la lista completa de personajes
+            const filteredFavorites = _allCharacters.filter((character) => character.gender === action.payload); // Filtramos por género
+            return {
+                ...state,
+                myFavorites: filteredFavorites, // Actualizamos la lista de favoritos con los personajes filtrados
+            };
+
+    // case FILTER :
+    //     const { gender } = action.payload;
+    //     const filteredCharacters = state._allCharacters.filter(character => character.gender === gender);
+    //     return {
+    //         ...state,
+    //         myFavorites: filteredCharacters
+    //     }
+
+    case ORDER:
+        const sortedCharacters = [...state._allCharacters].sort((a, b) => {
+            if (action.payload === 'Ascendente') {
+                return a.id - b.id; // Ordenamos de menor a mayor
+            } else if (action.payload === 'Descendente') {
+                return b.id - a.id; // Ordenamos de mayor a menor
+            } else {
+                return 0;
+        }
+        });
         return {
             ...state,
-            myFavorites: filteredCharacters
-        }
+          myFavorites: sortedCharacters, // Actualizamos la lista de favoritos con los personajes ordenados
+        };
 
-    case ORDER: 
-        const { id } = action.payload;
-        let sortedFavorites;
-        if (id === 'Ascendente') {
-            sortedFavorites = [...state.myFavorites.sort((a, b) => a.id - b.id)];
-        } else if (id === 'Descendente') {
-            sortedFavorites = [...state.myFavorites.sort((a, b) => b.id - a.id)];
-        }
-        return {            
-            ...state,
-            myFavorites: sortedFavorites
-        }
+
+    // case ORDER: 
+    //     const { id } = action.payload;
+    //     let sortedFavorites;
+    //     if (id === 'Ascendente') {
+    //         sortedFavorites = [...state.myFavorites.sort((a, b) => a.id - b.id)];
+    //     } else if (id === 'Descendente') {
+    //         sortedFavorites = [...state.myFavorites.sort((a, b) => b.id - a.id)];
+    //     }
+    //     return {            
+    //         ...state,
+    //         myFavorites: sortedFavorites
+    //     }
         
         default: 
             return {...state}
@@ -53,4 +77,5 @@ const reducer= (state= initialState, action ) =>{
 }
 
 export default reducer;
+
 
