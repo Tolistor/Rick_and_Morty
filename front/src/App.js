@@ -43,10 +43,10 @@ function App () {
     !access && navigate('/');
   }, [access, navigate]);
 
-
+//https://rickandmortyapi.com/api/character/
   const onSearch = (characters) => {
 
-    fetch(`http://localhost:3001/rickandmorty/onsearch/${characters}`)
+    fetch(`https://rickandmortyapi.com/api/character/${characters}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.name) {

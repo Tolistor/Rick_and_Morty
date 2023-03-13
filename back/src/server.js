@@ -1,51 +1,44 @@
-// var http = require('http');
-// var fs = require('fs');
-// //?--------------- imports ------------
-// const characters = require ('./utils/data')
 
+// const http = require ('http')
+// const getCharById = require('./controllers/getCharById')
+// const getCharDetail = require('./controllers/getCharDetail')
 
+// const PORT = 3001
 
-// //?instancio el puerto
-// const PORT = 3001;
-
-// //? creo el server
-// http.createServer(function(req, res) {
-    
-    
+// http.createServer(function (req, res) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
-    
-//     if (req.url.includes('rickandmorty/character')) {
-        
-//         let id = req.url.split('/').at(-1);
-        
 
-//         let characterFilter = characters.find(char => char.id === Number(id))
-//         // var characterFilter = data.filter(char => char.id === Number(id))      
+//     if (req.url.includes("onsearch")){
+//         const id = req.url.split('/').at(-1)
+//         getCharById(res,id)
+//     }
 
-//         res.writeHead(200, {"Content-type": 'application/json'}).end(JSON.stringify(characterFilter))
-        
-//         }
-    
+//     if (req.url.includes("detail")) {
+//         const id = req.url.split('/').at(-1)
+//         getCharDetail(res,id)
+//     }
 
-// }).listen(PORT,"localhost")
+// }).listen(PORT,'localhost')
 
-const http = require ('http')
-const getCharById = require('./controllers/getCharById')
-const getCharDetail = require('./controllers/getCharDetail')
+const express = require('express');
+const server = express();
+const morgan = require('morgan');
+const PORT = 3001;
+const router  = require('../src/routes/index');
+const cors =require("cors")
 
-const PORT = 3001
+//? creaos milware
+server.use(express.json())
+//?perimito acceder a todos
+server.use(cors())
+//? creaos milware
+server.use(morgan("dev"))
 
-http.createServer(function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+//? segundo milware
+server.use("/rickandmorty", router)
+//server.use(/user)
 
-    if (req.url.includes("onsearch")){
-        const id = req.url.split('/').at(-1)
-        getCharById(res,id)
-    }
 
-    if (req.url.includes("detail")) {
-        const id = req.url.split('/').at(-1)
-        getCharDetail(res,id)
-    }
-
-}).listen(PORT,'localhost')
+server.listen(PORT, () => {
+    console.log('Server raised in port ' + PORT);
+});

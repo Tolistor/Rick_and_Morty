@@ -15,7 +15,7 @@ const Detail = ()=> {
     
     
     useEffect(() => {
-        fetch(`http://localhost:3001/rickandmorty/detail/${detailId}`)
+        fetch(`https://rickandmortyapi.com/api/character/${detailId}`)
             .then((response) => response.json())
             .then((char) => {
             if (char.name) {
