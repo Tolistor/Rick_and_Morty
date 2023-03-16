@@ -47,25 +47,51 @@
 const URl = "https://rickandmortyapi.com/api/character/"
 const axios = require('axios')
 
-function getCharDetail (req, res) {
-    const { detailId } = req.params;
-    axios (URL +detailId).then(
-        (response)=>{
+async function getCharDetail (req, res) {
+    const { id } = req.params;
+    try {
+        const response = await axios.get(`${URL}${id}`)
         const character = {
             id : response.data.id,
             name : response.data.name,
             image : response.data.image,
             gender : response.data.gender,
             species : response.data.species,
-            //Agregamos
+
             status : response.data.status,
             origin : response.data.origin?.name
-
         }
         request.status(200).json(character)
-    },
-    (error) => request.status(500).json(error.message)
-    )
+    } catch (error) {
+        res.status(500).json({ message: error.message})
+    }
 }
-
 module.exports = {getCharDetail}
+
+
+
+// const URl = "https://rickandmortyapi.com/api/character/"
+// const axios = require('axios')
+
+// function getCharDetail (req, res) {
+//     const { detailId } = req.params;
+//     axios (URL +detailId).then(
+//         (response)=>{
+//         const character = {
+//             id : response.data.id,
+//             name : response.data.name,
+//             image : response.data.image,
+//             gender : response.data.gender,
+//             species : response.data.species,
+//             //Agregamos
+//             status : response.data.status,
+//             origin : response.data.origin?.name
+
+//         }
+//         request.status(200).json(character)
+//     },
+//     (error) => request.status(500).json(error.message)
+//     )
+// }
+
+// module.exports = {getCharDetail}
